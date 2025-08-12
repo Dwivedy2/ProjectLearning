@@ -31,3 +31,7 @@ D:\WebDev\API\DotNet\EmployeeManagement.Api\obj\Debug\net9.0\refint\EmployeeMana
 D:\WebDev\API\DotNet\EmployeeManagement.Api\obj\Debug\net9.0\EmployeeManagement.Api.pdb
 D:\WebDev\API\DotNet\EmployeeManagement.Api\obj\Debug\net9.0\EmployeeManagement.Api.genruntimeconfig.cache
 D:\WebDev\API\DotNet\EmployeeManagement.Api\obj\Debug\net9.0\ref\EmployeeManagement.Api.dll
+D:\WebDev\API\DotNet\EmployeeManagement.Api\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\WebDev\API\DotNet\EmployeeManagement.Api\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\WebDev\API\DotNet\EmployeeManagement.Api\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\WebDev\API\DotNet\EmployeeManagement.Api\obj\Debug\net9.0\EmployeeManagement.Api.sourcelink.json
