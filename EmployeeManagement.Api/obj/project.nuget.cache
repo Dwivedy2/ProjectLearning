@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "ZnavvpDLEt0=",
+  "success": true,
+  "projectFilePath": "D:\\WebDev\\API\\DotNet\\EmployeeManagement.Api\\EmployeeManagement.Api.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\omkareshwar.dwivedy\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.5\\microsoft.aspnetcore.openapi.9.0.5.nupkg.sha512",
+    "C:\\Users\\omkareshwar.dwivedy\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
