@@ -1,6 +1,7 @@
 using EmployeeManagement.Api.Repositories;
 using EmployeeManagement.Api.Repositories.Interfaces;
 using EmployeeManagement.Api.Services;
+using EmployeeManagement.Api.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 
 builder.Services.AddSingleton<IEmployeeRepository, EmployeeRepository>();
-builder.Services.AddScoped<EmployeeService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
