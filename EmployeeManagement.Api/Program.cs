@@ -2,6 +2,7 @@ using EmployeeManagement.Api.Repositories;
 using EmployeeManagement.Api.Repositories.Interfaces;
 using EmployeeManagement.Api.Services;
 using EmployeeManagement.Api.Services.Interfaces;
+using EmployeeManagement.Api.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ builder.Services.AddControllers();
 builder.Services.AddSingleton<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
 
 var app = builder.Build();
 
