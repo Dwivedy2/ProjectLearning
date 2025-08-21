@@ -33,8 +33,14 @@ namespace EmployeeManagement.Api.Repositories
 
         public void Update(Employee employee)
         {
-            Delete(employee.Id);         
-            _employees.Add(employee);
+            var existingEmployee = GetById(employee.Id);
+            if (existingEmployee == null) return;
+            
+            existingEmployee.Name = employee.Name;
+            existingEmployee.Location = employee.Location;
+            existingEmployee.Manager = employee.Manager;
+            existingEmployee.Skills = employee.Skills;
+            existingEmployee.CurrentProject = employee.CurrentProject;
         }
     }
 }
