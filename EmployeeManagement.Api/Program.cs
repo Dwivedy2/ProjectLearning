@@ -4,6 +4,7 @@ using EmployeeManagement.Api.Services;
 using EmployeeManagement.Api.Services.Interfaces;
 using EmployeeManagement.Api.Mappings;
 using EmployeeManagement.Api.Data;
+using EmployeeManagement.Api.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 
