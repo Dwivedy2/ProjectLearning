@@ -1,3 +1,4 @@
+using EmployeeManagement.Api.Data;
 using EmployeeManagement.Api.Models;
 using EmployeeManagement.Api.Repositories.Interfaces;
 
@@ -5,42 +6,39 @@ namespace EmployeeManagement.Api.Repositories
 {
     public class EmployeeRepository : IEmployeeRepository
     {
-        private readonly List<Employee> _employees;
-        public EmployeeRepository()
+        private readonly DataContext _context;
+
+        public EmployeeRepository(DataContext context)
         {
-            _employees = new();
+            _context = context;
         }
         public void Add(Employee employee)
         {
-            employee.Id = _employees.Count + 1;
-            _employees.Add(employee);
+            _context.Employees.Add(employee);
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            _employees.RemoveAll(e => e.Id == id);
+            var employee = GetById(id);
+            _context.Employees.Remove(employee);
+            _context.SaveChanges();
         }
 
         public IEnumerable<Employee> GetAll()
         {
-            return _employees;
+            return _context.Employees.ToList();
         }
 
         public Employee? GetById(int id)
         {
-            return _employees.FirstOrDefault(e => e.Id == id);
+            return _context.Employees.Find(id);
         }
 
         public void Update(Employee employee)
         {
-            var existingEmployee = GetById(employee.Id);
-            if (existingEmployee == null) return;
-            
-            existingEmployee.Name = employee.Name;
-            existingEmployee.Location = employee.Location;
-            existingEmployee.Manager = employee.Manager;
-            existingEmployee.Skills = employee.Skills;
-            existingEmployee.CurrentProject = employee.CurrentProject;
+            _context.Employees.Update(employee);
+            _context.SaveChanges();
         }
     }
 }

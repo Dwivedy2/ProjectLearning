@@ -6,36 +6,36 @@ namespace EmployeeManagement.Api.Services
 {
     public class EmployeeService : IEmployeeService
     {
-        private readonly IEmployeeRepository _repo;
+        private readonly IEmployeeRepository _empRepo;
 
-        public EmployeeService(IEmployeeRepository repo)
+        public EmployeeService(IEmployeeRepository empRepo)
         {
-            _repo = repo;
+            _empRepo = empRepo;
         }
 
         public IEnumerable<Employee> GetAllEmployees()
         {
-            return _repo.GetAll();
+            return _empRepo.GetAll();
         }
 
         public Employee? GetEmployeeById(int id)
         {
-            return _repo.GetById(id);
+            return _empRepo.GetById(id);
         }
 
         public void CreateEmployee(Employee employee)
         {
-            _repo.Add(employee);
+            _empRepo.Add(employee);
         }
 
         public void UpdateEmployee(Employee employee)
         {
-            _repo.Update(employee);   
+            _empRepo.Update(employee);   
         }
 
         public void DeleteEmployee(int id)
         {
-            _repo.Delete(id);
+            _empRepo.Delete(id);
         }
     }
 }

@@ -1,5 +1,4 @@
 using EmployeeManagement.Api.Models;
-using EmployeeManagement.Api.Services;
 using EmployeeManagement.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using EmployeeManagement.Api.DTO;
@@ -44,10 +43,9 @@ namespace EmployeeManagement.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<EmployeeDto> Update(int id, [FromBody] EmployeeDto employeeDto)
+        public ActionResult<EmployeeDto> Update(int id, [FromBody]EmployeeDto employeeDto)
         {
             if (employeeDto == null) return BadRequest("Employee data is null");
-            if (id != employeeDto.Id) return BadRequest("Employee ID mismatch");
 
             var existingEmployee = _service.GetEmployeeById(id);
 
