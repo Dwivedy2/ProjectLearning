@@ -26,7 +26,6 @@ namespace EmployeeManagement.Api.Middlewares
 
         public async Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
-            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
             context.Response.ContentType = "application/json";
 
             var statusCode = ex switch
@@ -36,6 +35,8 @@ namespace EmployeeManagement.Api.Middlewares
                 UnauthorizedAccessException => StatusCodes.Status401Unauthorized,  
                 _ => StatusCodes.Status500InternalServerError              
             };
+
+            context.Response.StatusCode = statusCode;
 
             var errorResponse = new ErrorDetail
             {
