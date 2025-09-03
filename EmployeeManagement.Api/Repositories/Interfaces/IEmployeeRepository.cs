@@ -8,6 +8,6 @@ namespace EmployeeManagement.Api.Repositories.Interfaces
         Employee? GetById(int id);
         void Add(Employee employee);
         void Update(Employee employee);
-        void Delete(int id);
+        void Delete(Employee employee);
     }
 }

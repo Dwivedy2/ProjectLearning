@@ -15,14 +15,11 @@ namespace EmployeeManagement.Api.Repositories
         public void Add(Employee employee)
         {
             _context.Employees.Add(employee);
-            _context.SaveChanges();
         }
 
-        public void Delete(int id)
+        public void Delete(Employee employee)
         {
-            var employee = GetById(id);
             _context.Employees.Remove(employee);
-            _context.SaveChanges();
         }
 
         public IEnumerable<Employee> GetAll()
@@ -38,7 +35,6 @@ namespace EmployeeManagement.Api.Repositories
         public void Update(Employee employee)
         {
             _context.Employees.Update(employee);
-            _context.SaveChanges();
         }
     }
 }

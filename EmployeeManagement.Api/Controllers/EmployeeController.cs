@@ -52,6 +52,7 @@ namespace EmployeeManagement.Api.Controllers
             if (existingEmployee == null) return NotFound();
 
             _mapper.Map(employeeDto, existingEmployee);
+            existingEmployee.Id = id;
             _service.UpdateEmployee(existingEmployee);
             return Ok(employeeDto);
         }
