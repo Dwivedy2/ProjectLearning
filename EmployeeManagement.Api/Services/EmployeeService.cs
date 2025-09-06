@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using EmployeeManagement.Api.Models;
 using EmployeeManagement.Api.Repositories.Interfaces;
 using EmployeeManagement.Api.Services.Interfaces;
@@ -8,48 +9,50 @@ namespace EmployeeManagement.Api.Services
     {
         private readonly ILogger<EmployeeService> _logger;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IGenericRepository<Employee> _employeeRepository;
 
         public EmployeeService(ILogger<EmployeeService> logger,
             IUnitOfWork unitOfWork)
         {
             _logger = logger;
             _unitOfWork = unitOfWork;
+            _employeeRepository = _unitOfWork.GetRepository<Employee>();
         }
 
-        public IEnumerable<Employee> GetAllEmployees()
+        public async Task<IEnumerable<Employee>> GetAllEmployeesAsync()
         {
             _logger.LogInformation("Fetching all employees");
-            return _unitOfWork.Employees.GetAll();
+            return await _employeeRepository.GetAllAsync();
         }
 
-        public Employee? GetEmployeeById(int id)
+        public async Task<Employee?> GetEmployeeByIdAsync(int id)
         {
             _logger.LogInformation($"Fetching employee with ID: {id}");
-            return _unitOfWork.Employees.GetById(id);
+            return await _employeeRepository.GetByIdAsync(id);
         }
 
-        public void CreateEmployee(Employee employee)
+        public async Task CreateEmployeeAsync(Employee employee)
         {
             _logger.LogInformation("Creating a new employee");
-            _unitOfWork.Employees.Add(employee);
-            _unitOfWork.SaveChanges();
+            await _employeeRepository.AddAsync(employee);
+            await _unitOfWork.SaveChangesAsync();
         }
 
-        public void UpdateEmployee(Employee employee)
+        public async Task UpdateEmployeeAsync(Employee employee)
         {
             _logger.LogInformation($"Updating employee with ID: {employee.Id}");
-            _unitOfWork.Employees.Update(employee);  
-            _unitOfWork.SaveChanges(); 
+            _employeeRepository.Update(employee);  
+            await _unitOfWork.SaveChangesAsync(); 
         }
 
-        public void DeleteEmployee(int id)
+        public async Task DeleteEmployeeAsync(int id)
         {
             _logger.LogInformation($"Deleting employee with ID: {id}");
-            var empToDel = _unitOfWork.Employees.GetById(id);
+            var empToDel = await _employeeRepository.GetByIdAsync(id);
             if (empToDel != null)
             {
-                _unitOfWork.Employees.Delete(empToDel);
-                _unitOfWork.SaveChanges();
+                _employeeRepository.Delete(empToDel);
+                await _unitOfWork.SaveChangesAsync();
             }
             else
             {

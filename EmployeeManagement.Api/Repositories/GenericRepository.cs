@@ -14,9 +14,10 @@ namespace EmployeeManagement.Api.Repositories
             _context = context;
             _dbSet = _context.Set<TEntity>();
         }
-        public void Add(TEntity entity)
+
+        public async Task AddAsync(TEntity entity)
         {
-            _dbSet.Add(entity);
+            await _dbSet.AddAsync(entity);
         }
 
         public void Delete(TEntity entity)
@@ -24,14 +25,14 @@ namespace EmployeeManagement.Api.Repositories
             _dbSet.Remove(entity);
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return _dbSet.ToList();
+            return await _dbSet.ToListAsync();
         }
 
-        public TEntity? GetById(int id)
+        public async Task<TEntity?> GetByIdAsync(int id)
         {
-            return _dbSet.Find(id);
+            return await _dbSet.FindAsync(id);
         }
 
         public void Update(TEntity entity)

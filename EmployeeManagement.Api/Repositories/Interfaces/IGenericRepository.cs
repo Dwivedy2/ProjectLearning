@@ -2,9 +2,9 @@ namespace EmployeeManagement.Api.Repositories.Interfaces
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {
-        IEnumerable<TEntity> GetAll();
-        TEntity? GetById(int id);
-        void Add(TEntity entity);
+        Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<TEntity?> GetByIdAsync(int id);
+        Task AddAsync(TEntity entity);
         void Update(TEntity entity);
         void Delete(TEntity entity);   
     }

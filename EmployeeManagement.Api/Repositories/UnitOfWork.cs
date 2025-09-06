@@ -6,12 +6,23 @@ namespace EmployeeManagement.Api.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly DataContext _context;
-        public IEmployeeRepository Employees { get; }
+        private Dictionary<Type, object> _repositories;
 
-        public UnitOfWork(DataContext context, IEmployeeRepository employeeRepository)
+        public UnitOfWork(DataContext context)
         {
             _context = context;
-            Employees = employeeRepository;
+            _repositories = new Dictionary<Type, object>();
+        }
+
+        public IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class
+        {
+            if (_repositories.ContainsKey(typeof(TEntity)))
+            {
+                return (IGenericRepository<TEntity>)_repositories[typeof(TEntity)];
+            }
+
+            _repositories.Add(typeof(TEntity), new GenericRepository<TEntity>(_context));
+            return (IGenericRepository<TEntity>)_repositories[typeof(TEntity)];
         }
 
         public void Dispose()
@@ -19,9 +30,9 @@ namespace EmployeeManagement.Api.Repositories
             _context.Dispose();
         }
 
-        public void SaveChanges()
+        public async Task SaveChangesAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

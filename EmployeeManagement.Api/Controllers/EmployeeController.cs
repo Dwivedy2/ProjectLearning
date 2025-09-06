@@ -20,50 +20,56 @@ namespace EmployeeManagement.Api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<EmployeeDto>> GetAll()
+        public async Task<ActionResult<IEnumerable<EmployeeDto>>> GetAllAsync()
         {
-            return Ok(_service.GetAllEmployees().Select(e => _mapper.Map<EmployeeDto>(e)).ToList());
+            var employees = await _service.GetAllEmployeesAsync();
+            employees.Select(e => _mapper.Map<EmployeeDto>(e)).ToList();
+            return Ok(employees);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        [HttpGet("{id}", Name = "GetById")]
+        public async Task<IActionResult> GetByIdAsync(int id)
         {
-            var employee = _service.GetEmployeeById(id);
+            var employee = await _service.GetEmployeeByIdAsync(id);
             if (employee == null) return NotFound();
             return Ok(_mapper.Map<EmployeeDto>(employee));
         }
 
         [HttpPost]
-        public ActionResult<EmployeeDto> Create(EmployeeDto employeeDto)
+        public async Task<ActionResult<EmployeeDto>> CreateAsync(EmployeeDto employeeDto)
         {
             if (employeeDto == null) return BadRequest("Employee data is null");
             var employee = _mapper.Map<Employee>(employeeDto);
-            _service.CreateEmployee(employee);
-            return CreatedAtAction(nameof(GetById), new { id = employee.Id }, employeeDto);
+            await _service.CreateEmployeeAsync(employee);
+            return CreatedAtAction(
+                "GetById",
+                new { id = employee.Id },
+                _mapper.Map<EmployeeDto>(employee)
+            );
         }
 
         [HttpPut("{id}")]
-        public ActionResult<EmployeeDto> Update(int id, [FromBody]EmployeeDto employeeDto)
+        public async Task<ActionResult<EmployeeDto>> UpdateAsync(int id, [FromBody]EmployeeDto employeeDto)
         {
             if (employeeDto == null) return BadRequest("Employee data is null");
 
-            var existingEmployee = _service.GetEmployeeById(id);
+            var existingEmployee = await _service.GetEmployeeByIdAsync(id);
 
             if (existingEmployee == null) return NotFound();
 
             _mapper.Map(employeeDto, existingEmployee);
             existingEmployee.Id = id;
-            _service.UpdateEmployee(existingEmployee);
+            await _service.UpdateEmployeeAsync(existingEmployee);
             return Ok(employeeDto);
         }
         
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
-            var employee = _service.GetEmployeeById(id);
+            var employee = await _service.GetEmployeeByIdAsync(id);
             if (employee == null) return NotFound();
 
-            _service.DeleteEmployee(id);
+            await _service.DeleteEmployeeAsync(id);
             return NoContent();
         }
     }

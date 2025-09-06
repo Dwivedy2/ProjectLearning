@@ -2,7 +2,7 @@ namespace EmployeeManagement.Api.Repositories.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-       IEmployeeRepository Employees { get; }
-       void SaveChanges(); 
+       IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class;
+       Task SaveChangesAsync(); 
     }
 }
