@@ -2,12 +2,8 @@ using EmployeeManagement.Api.Models;
 
 namespace EmployeeManagement.Api.Repositories.Interfaces
 {
-    public interface IEmployeeRepository
+    public interface IEmployeeRepository : IGenericRepository<Employee>
     {
-        IEnumerable<Employee> GetAll();
-        Employee? GetById(int id);
-        void Add(Employee employee);
-        void Update(Employee employee);
-        void Delete(Employee employee);
+        
     }
 }
